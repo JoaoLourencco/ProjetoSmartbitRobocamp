@@ -6,6 +6,7 @@ Library              Browser
 Library              Collections
              
 Resource            ../resources/base.resource
+Resource    ../resources/services/sessions.resource
 
 
 
@@ -15,17 +16,21 @@ Resource            ../resources/base.resource
 Deve matricular um aluno
 
     ${Admin}           Get fixture    admin
-    ${student}         Get fixture    student
+    ${falcao}         Get fixture     falcao
 
-    Reset Student Enroll        ${student}[email]
+    Reset Student        ${falcao}[student][email]
+    
+    ${token}    Get Service Token    ${admin}
+    POST New Student        ${token}     ${falcao}[student]
+
     Do Login    ${Admin}
     
     Go To Enrolls
     Go To Enrolls Form
-    Select Student        ${student}[name]
-    Select Plan           ${student}[enroll][plan]
+    Select Student        ${falcao}[student][name]
+    Select Plan           ${falcao}[enroll][plan]
     Fill Start Date         
     Submmit enroll Form
     Verify Toaster    Matrícula cadastrada com sucesso
 
-    Sleep   3
+    
