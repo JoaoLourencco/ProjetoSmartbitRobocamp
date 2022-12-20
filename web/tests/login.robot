@@ -5,6 +5,9 @@ Documentation        Suite de testes de autenticação
 Library              Browser
              
 Resource            ../resoucers/base.resource
+Resource            ../resources/pages/login.resource
+Resource            ../resources/components/navbar.resource
+Resource            ../resources/components/toast.resource
 
 
 
@@ -31,7 +34,7 @@ Senha invalida
     Go To Login Page
     Fill credentials        admin@smartbit.com    abc123    
     Submit Credentials
-    Verify Toaster          Suas credenciais são inválidas, por favor tente novamente!
+    Verify Toaster         Suas credenciais são inválidas, por favor tente novamente!
 
 Email no formato incorreto
    
