@@ -1,50 +1,51 @@
 *** Settings ***
-
-Documentation                Gerenciando a massa de testes através do banco de dados
+Documentation            Gerenciando a massa de testes atraves do banco de dados
 
 Library            DatabaseLibrary
 
 *** Keywords ***
-
 Connect To Postgres
-    Connect To Database	    psycopg2
-    ...                    	vspfrhlo
-    ...                     vspfrhlo
-    ...                    	pep2lqMuJT9JIRn0bOjV4-rC-whWQdws
-    ...                     babar.db.elephantsql.com
-    ...                    	5432
+    Connect To Database       psycopg2
+    ...                       kocprwov
+    ...                       kocprwov
+    ...                       5Imw_Pe8vY0q909vdQlZKzedEnrE0wyo
+    ...                       babar.db.elephantsql.com
+    ...                       5432
 
-Select Student Where email
-    [Arguments]            ${email} 
+Select Student Where Email
+    [Arguments]            ${email}
 
-    ${query}                Set Variable
-    ...                     SELECT * FROM public.students WHERE email = '${email}';  
+    ${query}        Set Variable
+    ...             SELECT * FROM public.students WHERE email = '${email}';
 
-   ${result}                Query                ${query}
-   [return]                   ${result}[0]
+    ${result}       Query           ${query}
+
+    [return]        ${result}[0]
 
 
 Delete Enroll By Email
-    [Arguments]             ${email}
 
-    ${user}                 Select Student Where email    ${email}
+    [Arguments]    ${email}
 
-    ${query}                Set Variable
-    ...                     DELETE FROM public.enrollments WHERE student_id = '${user}[0]';
+    ${user}        Select Student Where Email      ${email}  
 
-    Execute Sql String      ${query}
+    ${query}       Set Variable
+    ...            DELETE FROM public.enrollments WHERE student_id = '${user}[0]';
+
+    Execute SQL String        ${query}
 
 Delete Student By Email
     [Arguments]            ${email}
 
-    ${query}        Set Variable
-    ...             DELETE FROM public.students WHERE email = '${email}';
+    ${query}       Set Variable
+    ...            DELETE FROM public.students WHERE email = '${email}';
 
-    Execute Sql String    ${query}
+    Execute SQL String     ${query}
 
-#Helpers
+# Helpers
 Reset Student
-    [Arguments]                     ${email}
+    [Arguments]                   ${email}
+    
     Connect To Postgres
-    Delete Student By Email         ${email}
+    Delete Student By Email       ${email}
     Disconnect From Database

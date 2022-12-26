@@ -2,66 +2,53 @@
 Documentation        Suite de testes de autenticação
 ...                  Administrador deve acessar o portal de gestão de academias
 
-Library              Browser
-             
-Resource            ../resoucers/base.resource
-Resource            ../resources/pages/login.resource
-Resource            ../resources/components/navbar.resource
-Resource            ../resources/components/toast.resource
+Resource        ../resources/base.resource
 
-
+Test Teardown        Take Screenshot
 
 *** Test Cases ***
-
 Login do Administrador
-
     Go To Login Page
-    Fill Credentials    admin@smartbit.com    qacademy
+    Fill Credentials    admin@smartbit.com       qacademy
     Submit Credentials
-    User Should Be Looged In        Admin    
+    User Should Be Looged In    Admin
 
-   
 Email não cadastrado
-
     Go To Login Page
-    Fill Credentials        404@smartbit.com    qacademy
+    Fill Credentials      404@smartbit.com        qacademy
     Submit Credentials
-    Verify Toaster          Suas credenciais são inválidas, por favor tente novamente!
+    Verify Toaster        Suas credenciais são inválidas, por favor tente novamente!
 
-
-Senha invalida
-    
+Senha inválida
     Go To Login Page
-    Fill credentials        admin@smartbit.com    abc123    
+    Fill Credentials        admin@smartbit.com    abc123
     Submit Credentials
-    Verify Toaster         Suas credenciais são inválidas, por favor tente novamente!
+    Verify Toaster        Suas credenciais são inválidas, por favor tente novamente!
 
 Email no formato incorreto
-   
     Go To Login Page
-    Fill Credentials      @.com.br    abc123
+    Fill Credentials        @com.br        abc123
     Submit Credentials
-    Filed Type Should Be Email
-    
+    Field Type Should Be Email 
+
 Senha em branco
+
     Go To Login Page
-    Fill Credentials            admin@smartbit.com    ${EMPTY}
+    Fill Credentials    admin@smartbit.com       ${EMPTY}
     Submit Credentials
-    Alert Text Should Be        password      A senha é obrigatória
+    Alert Text Should Be        password    A senha é obrigatória
 
 Email em branco
-    Go To Login Page    
-    Fill Credentials        ${EMPTY}       ${EMPTY}
+    
+    Go To Login Page
+    Fill Credentials    ${EMPTY}       qacademy
     Submit Credentials
-    Alert Text Should Be     email       O e-mail é obrigatório    
+    Alert Text Should Be        email       O e-mail é obrigatório
 
 Email e senha são obrigatórios
-    [Tags]    temp
+    [Tags]        temp
+
     Go To Login Page
     Submit Credentials
-    Alert Text Should Be         email         O e-mail é obrigatório 
-    Alert Text Should Be         password      A senha é obrigatória
-
-    
-    
-    
+    Alert Text Should Be        email       O e-mail é obrigatório
+    Alert Text Should Be        password    A senha é obrigatória

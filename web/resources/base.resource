@@ -1,37 +1,35 @@
 *** Settings ***
-
 Documentation        Tudo começa aqui
 
-Resource            components/navbar.resource
-Resource            components/toast.resource
-Resource            pages/login.resource
-Resource            pages/enroll.resource
+Resource        components/navbar.resource
+Resource        components/toast.resource
+Resource        components/notification.resource
+Resource        pages/login.resource
+Resource        pages/enroll.resource
 
-Resource            database.resource
+Resource        services/sessions.resource
+Resource        services/students.resource
 
-Resource            services/sessions.resource
-Resource            services/students.resource
+Resource        database.resource
 
-Library    JSONLibrary
+Library        JSONLibrary
+
 
 *** Keywords ***
-
-#Helpers
-
+# Helpers
 Do Login
-    [Arguments]    ${user}
+    [Arguments]        ${user}
 
     Go To Login Page
-    Fill Credentials    ${user}[email]   ${user}[password]
+    Fill Credentials    ${user}[email]    ${user}[password]
     Submit Credentials
-    User Should Be Looged In        ${user}[name]
+    User Should Be Looged In    ${user}[name]
 
-Get fixture
-    [Arguments]           ${fixture_file}
+Get Fixture
+    [Arguments]      ${fixture_file}
 
-    ${fixture}             Load Json From File   
-    ...                    ${EXECDIR}/resources/fixtures/${fixture_file}.json
-    ...                    encoding=UTF-8
+    ${fixture}        Load JSON From File
+    ...               ${EXECDIR}/resources/fixtures/${fixture_file}.json
+    ...               encoding=UTF-8
 
-    [Return]               ${fixture}
-
+    [return]        ${fixture}
